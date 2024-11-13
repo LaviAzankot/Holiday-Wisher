@@ -1,0 +1,46 @@
+<%- include('./partials/header.ejs') %>
+
+<div id="content">
+    <h3>Click to edit</h3>
+    <div id="contacts">
+        <% for (let i=0; i<contacts.length; i++) { %>
+            <div id="contact<%= i %>">
+                <p contenteditable="true"><%= contacts[i] %></p>
+            </div>
+
+        <% } %>
+    </div>
+    <form method="post" action="/send">
+        <input name="editedContacts" hidden>
+        <button type="submit" onclick="editNames()">Send Messages</button>
+    </form>
+</div>
+
+<%- include('./partials/footer.ejs') %>
+
+<script>
+    // Create an array with the names
+    // It looks like this: [searchName, editedName]
+    const contacts = "<%= contacts %>".split(",");
+    let editedContacts = [];
+    for (const contact of contacts){
+        const item = [contact, contact];
+        editedContacts.push(item);
+    }
+
+    console.log(editedContacts);
+
+    function editNames(){
+        const names = document.querySelectorAll("p");
+        for (let i=0; i<contacts.length; i++){
+            // Update the editedName in the array
+            editedContacts[i][1] = names[i].innerText;
+        }
+        const result = document.querySelector("input");
+        result.value = editedContacts;
+    }
+
+</script>
+
+</body>
+</html>

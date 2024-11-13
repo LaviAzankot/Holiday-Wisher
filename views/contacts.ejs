@@ -1,0 +1,52 @@
+<%- include('./partials/header.ejs') %>
+
+<div id="content">
+    <% if (locals.contacts) { %>
+        <h3>Click to select contacts</h3>
+        <div id="contacts">
+            <% for (const contact of contacts) { %>
+                <p><%= contact %></p>
+            <% } %>
+        </div>
+        <form method="post" action="/edit">
+            <input name="selectedContacts" hidden>
+            <button type="submit">Edit Names</button>
+        </form>
+    <% } else { %>
+        <form method="get" action="/contacts">
+            <label>Login to whatsapp and then click continue</label>
+            <button type="submit">Continue</button>
+        </form>
+    <% } %>
+</div>
+
+<%- include('./partials/footer.ejs') %>
+
+<script>
+    const input = document.querySelector("input");
+    const names = document.querySelectorAll("p");
+    let selectedContacts = [];
+    names.forEach(name => {
+        name.addEventListener("click", function() {
+            // Remove contact
+            if (selectedContacts.includes(this.innerText)) {
+                this.style.color = "black";
+                selectedContacts.splice(selectedContacts.indexOf(this.innerText), 1);
+            } 
+            // Add contact
+            else {
+                selectedContacts.push(this.innerText);
+                this.style.color = "#61D171";
+            }
+            
+            input.value = selectedContacts;
+            console.log(selectedContacts);
+            
+        })
+        
+    });
+
+</script>
+
+</body>
+</html>

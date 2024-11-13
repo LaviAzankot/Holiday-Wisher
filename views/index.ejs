@@ -1,0 +1,19 @@
+<%- include('./partials/header.ejs') %>
+
+<div id="content">
+    <div id="wish">
+        <h3>Write your message </br> Between the first message and the end meesage the contact name will apppear</h3>
+        <form method="post" action="/create-message">
+            <label>Write your start message:</label>
+            <textarea name="startMessage"></textarea>
+            <label>Write your end message:</label>
+            <textarea name="endMessage"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>
+
+</body>
+</html>
